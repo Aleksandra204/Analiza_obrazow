@@ -1,24 +1,33 @@
-clc; clear; close all;
+clc;
+clear;
+close all;
 
+% Load configuration settings
 config;
 
-[imdsTrain, imdsTest, augimdsTrain, augimdsTest] = preprocessData(datasetPath, 0.8);
+% Preprocess the data
+[imdsTrain, imdsTest] = preprocessData(datasetPath, 0.8);
 
+% Define the model
 numClasses = numel(unique(imdsTrain.Labels));
 layers = defineModel(numClasses);
 
+% Set training options
 options = trainingOptions('adam', ...
     'InitialLearnRate', learningRate, ...
     'MaxEpochs', maxEpochs, ...
     'MiniBatchSize', batchSize, ...
     'Plots', 'training-progress', ...
-    'ValidationData', augimdsTest);
+    'ValidationData', imdsTest);
 
-trainedNet = trainModel(augimdsTrain, layers, options);
+% Train the model
+trainedNet = trainModel(imdsTrain, layers, options);
 
+% Evaluate the model
 accuracy = testModel(trainedNet, imdsTest);
-disp(['Dokładność modelu: ', num2str(accuracy * 100), '%']);
+disp(['Model accuracy: ', num2str(accuracy * 100), '%']);
 
-newImagePath = 'path_to_new_image.jpg';
+% Predict the brand of a new car image
+newImagePath = 'loaded/test.jpg';
 label = predictCarBrand(newImagePath, trainedNet);
-disp(['Rozpoznana marka samochodu: ', char(label)]);
+disp(['Predicted car brand: ', char(label)]);

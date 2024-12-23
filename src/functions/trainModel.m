@@ -1,4 +1,3 @@
-function trainedNet = trainModel(augimdsTrain, layers, options)
-    trainedNet = trainNetwork(augimdsTrain, layers, options);
-    save('trainedNet.mat', 'trainedNet');
+function trainedNet = trainModel(imdsTrain, layers, options)
+    trainedNet = trainNetwork(imdsTrain, layers, options);
 end

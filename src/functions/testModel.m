@@ -1,5 +1,4 @@
 function accuracy = testModel(trainedNet, imdsTest)
     predictedLabels = classify(trainedNet, imdsTest);
-    accuracy = mean(predictedLabels == imdsTest.Labels);
-    confusionchart(imdsTest.Labels, predictedLabels);
+    accuracy = sum(predictedLabels == imdsTest.Labels) / numel(imdsTest.Labels);
 end
