@@ -28,6 +28,6 @@ accuracy = testModel(trainedNet, imdsTest);
 disp(['Model accuracy: ', num2str(accuracy * 100), '%']);
 
 % Predict the brand of a new car image
-newImagePath = 'loaded/test.jpg';
+newImagePath = 'loaded/test.png';
 label = predictCarBrand(newImagePath, trainedNet);
 disp(['Predicted car brand: ', char(label)]);
